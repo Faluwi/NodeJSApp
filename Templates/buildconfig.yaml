@@ -1,0 +1,13 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: node-pipeline
+  namespace: nodejenkinsfile
+spec:
+  source:
+    git:
+      uri: "https://github.com/Faluwi/NodeJSApp"
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfile: /Jenkins/Jenkinsfile
+      type: JenkinsPipeline
