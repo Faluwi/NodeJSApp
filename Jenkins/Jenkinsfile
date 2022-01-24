@@ -16,15 +16,9 @@ pipeline {
     // Use the 'node' Jenkins agent image which is provided with OpenShift 
     agent { label "node" }
     stages {
-      stage("buildconnfig") {
-        script {
-             openshift.withCluster() {
-                 openshift.withProject('dev') {
-                    oc.create(./Templates/buildconfig.yaml);
-                  }
-             }
+        stage("buildconnfig") {
+             sh 'oc create -f ./Templates/buildconfig.yaml'
         }
-      }
         stage("Checkout") {
             steps {
                 checkout scm
