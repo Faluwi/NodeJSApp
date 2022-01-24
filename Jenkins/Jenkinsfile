@@ -59,7 +59,7 @@ pipeline {
                 }
             }
               steps {
-                  sh 'echo "hellM"'
+                  sh 'helm version'
              }
         }
     }//Stages
