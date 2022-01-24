@@ -53,7 +53,9 @@ pipeline {
         agent {
           label "maven"
         }
-       sh "echo 'deployment'"
+        steps {
+              sh "echo 'Testing'"
+          }
     }
   }
 }
