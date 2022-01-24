@@ -49,7 +49,7 @@ pipeline {
         stage ("Deploy to DEV") {
             agent {label 'maven'}
             steps {
-                sh "echo 'Testing'"
+                sh "oc new-app faluwi/test:latest"
             }
         }
     }//Stages
