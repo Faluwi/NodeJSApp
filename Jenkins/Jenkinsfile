@@ -21,11 +21,11 @@ pipeline {
                 sh 'oc delete bc hello-world'
             }
         }
-        stage("buildconnfig") {
-            steps {
+        //stage("buildconnfig") {
+         //   steps {
                //sh 'oc create -f ./Templates/buildconfig.yaml'
-            }
-        }
+         //   }
+        //}
         stage("Checkout") {
             steps {
                 checkout scm
