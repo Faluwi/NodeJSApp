@@ -17,7 +17,9 @@ pipeline {
     agent { label "node" }
     stages {
         stage("buildconnfig") {
-             sh 'oc create -f ./Templates/buildconfig.yaml'
+          steps {
+              sh 'oc create -f ./Templates/buildconfig.yaml'
+          }
         }
         stage("Checkout") {
             steps {
@@ -25,7 +27,9 @@ pipeline {
             }
         }
         stage("Testing") {
-            sh "echo 'Testing'"
+          steps {
+              sh "echo 'Testing'"
+          }
         }
         stage("Docker Build") {
             steps {
