@@ -43,7 +43,21 @@ pipeline {
         }
         
         stage ("helm") {
-            agent {label 'helm'}
+            agent {
+                kubernetes {
+                    yaml '''
+                        apiVersion: v1
+                        kind: Pod
+                        spec:
+                            containers:
+                            -  name: helm-slave
+                               image: docker.io/faluwi/jenkins-helm-agent:v0.1
+                               command:
+                               - cat
+                               tty: true
+                        '''
+                }
+            }
               steps {
                   sh 'echo "hellM"'
              }
