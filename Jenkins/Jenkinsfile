@@ -39,7 +39,7 @@ pipeline {
         stage("Docker Build") {
             steps {
                 sh 'oc create -f ./Templates/buildconfig.yaml'
-                sh 'oc start-build hello'
+                sh 'oc start-build hello-world'
                 // This uploads your application's source code and performs a binary build in OpenShift
                 // This is a step defined in the shared library (see the top for the URL)
                 // (Or you could invoke this step using 'oc' commands!)
