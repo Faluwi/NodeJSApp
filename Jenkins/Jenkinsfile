@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     openshift.withCluster() {
-                        openshift.withProject('dev') {
+                        openshift.withProject('faluwi-dev') {
                             echo "Using Project: ${openshift.project()}"
                             if(openshift.selector("all", [app: name]).exists()) {
                                 openshift.selector('all', [app : name]).delete()
