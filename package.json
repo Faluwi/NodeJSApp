@@ -1,17 +1,28 @@
 {
-  "name": "nodewebapp",
-  "version": "0.0.1",
-  "description": "My first Web App",
-  "main": "app.js",
+  "name": "hello_world",
+  "version": "1.0.0",
+  "description": "First Application",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "lint": "eslint",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faluwi/msapp.git"
   },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Faluwi/msapp/issues"
+  },
+  "homepage": "https://github.com/Faluwi/msapp#readme",
   "dependencies": {
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "path": "^0.12.7"
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4"
   }
 }
