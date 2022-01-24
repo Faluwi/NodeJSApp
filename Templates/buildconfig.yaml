@@ -8,7 +8,7 @@ spec:
   output:
     to:
       kind: DockerImage
-      name: default-route-openshift-image-registry.apps-crc.testing/cicd/hello-world:latest
+      name: faluwi/test:lastest
   source:
     # Expect a local directory to be streamed to OpenShift as a build source
     type: Binary
