@@ -14,9 +14,8 @@ appName = "hello-world"
 
 pipeline {
     // Use the 'node' Jenkins agent image which is provided with OpenShift 
-    agent none
+    agent {label 'nodejs'}
     stages {
-        agent {label 'nodejs'}
         stage("Clean bc") {
             steps {
                 sh 'oc delete bc hello-world'
