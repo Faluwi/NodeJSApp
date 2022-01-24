@@ -60,7 +60,7 @@ pipeline {
             }
               steps {
                   container('helm-slave') {
-                     sh '/usr/bin/helm/helm version' 
+                     sh 'helm version' 
                   }
              }
         }
