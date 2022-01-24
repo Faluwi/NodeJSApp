@@ -21,8 +21,10 @@ pipeline {
         }
         stage("Build and push image to Docker") {
             steps {
-                sh 'oc create -f ./Templates/buildconfig.yaml'
-                sh "oc start-build hello-world --from-dir '.'"
+                //sh 'oc create -f ./Templates/buildconfig.yaml'
+                //sh "oc start-build hello-world --from-dir '.'"
+                sh 'podman build -t docker.io/faluwi/hello-world:v0.3 .'
+                sh 'podman push docker.io/faluwi/hello-world:v0.3'
             }
         }
         stage ("Deploy to DEV") {
