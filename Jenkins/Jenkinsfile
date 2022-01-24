@@ -17,16 +17,16 @@ pipeline {
     agent any
     stages {
         stage("Clean bc") {
-          agent {label nodejs}
-           steps {
-              sh 'oc delete bc hello-world'
-          }
+            agent {label nodejs}
+            steps {
+                sh 'oc delete bc hello-world'
+            }
         }
         stage("buildconnfig") {
-          agent {label nodejs}
-          steps {
-              sh 'oc create -f ./Templates/buildconfig.yaml'
-          }
+            agent {label nodejs}
+            steps {
+               sh 'oc create -f ./Templates/buildconfig.yaml'
+            }
         }
         stage("Checkout") {
             agent {label nodejs}
@@ -35,10 +35,10 @@ pipeline {
             }
         }
         stage("Testing") {
-          agent {label nodejs}
-          steps {
-              sh "echo 'Testing'"
-          }
+            agent {label nodejs}
+            steps {
+                sh "echo 'Testing'"
+            }
         }
         stage("Docker Build") {
             agent {label nodejs}
@@ -49,13 +49,11 @@ pipeline {
                 binaryBuild(buildConfigName: appName, buildFromPath: ".")
             }
         }
-    stage ("Deploy to DEV") {
-        agent {
-          label "maven"
+        stage ("Deploy to DEV") {
+            agent {label maven}
+            steps {
+                sh "echo 'Testing'"
+            }
         }
-        steps {
-              sh "echo 'Testing'"
-          }
-    }
-  }
-}
+    }//Stages
+}//Pipeline
