@@ -20,7 +20,7 @@ pipeline {
         script {
              openshift.withCluster() {
                  openshift.withProject('dev') {
-                    oc.create(./Template/buildconfig.yaml);
+                    oc.create(./Templates/buildconfig.yaml);
                   }
              }
         }
