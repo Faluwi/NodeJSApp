@@ -35,12 +35,18 @@ pipeline {
             }
         }
         stage ("Deploy to DEV") {
-            agent {label 'maven'}
             steps {
                 sh 'oc delete deployment test'
                 sh 'oc delete service test'
                 sh "oc new-app faluwi/test:latest"
             }
+        }
+        
+        stage ("helm") {
+            agent {label 'helm'}
+              steps {
+                  sh 'echo "hellM"'
+             }
         }
     }//Stages
 }//Pipeline
