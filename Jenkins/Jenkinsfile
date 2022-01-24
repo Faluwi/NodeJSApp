@@ -49,12 +49,10 @@ pipeline {
                 binaryBuild(buildConfigName: appName, buildFromPath: ".")
             }
         }
-    }
-  stages {
-      agent {
-    label "maven"
-  }
     stage ("Deploy to DEV") {
+        agent {
+          label "maven"
+        }
        sh "echo 'deployment'"
     }
   }
