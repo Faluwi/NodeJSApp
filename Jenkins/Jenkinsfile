@@ -59,7 +59,7 @@ pipeline {
                 }
             }
               steps {
-                  sh 'helm version'
+                  sh '/usr/bin/helm/helm version'
              }
         }
     }//Stages
