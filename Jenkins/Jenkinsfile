@@ -4,16 +4,6 @@ pipeline {
     // Use the 'node' Jenkins agent image which is provided with OpenShift 
     agent {label 'nodejs'}
     stages {
-        stage("Clean bc") {
-            steps {
-                sh 'oc delete bc hello-world'
-            }
-        }
-        //stage("buildconnfig") {
-         //   steps {
-               //sh 'oc create -f ./Templates/buildconfig.yaml'
-         //   }
-        //}
         stage("Checkout") {
             steps {
                 checkout scm
@@ -24,14 +14,15 @@ pipeline {
                 sh "echo 'Testing'"
             }
         }
-        stage("Docker Build") {
+        stage("Clean BuildConfig") {
+            steps {
+                sh 'oc delete bc hello-world'
+            }
+        }
+        stage("Build and push image to Docker") {
             steps {
                 sh 'oc create -f ./Templates/buildconfig.yaml'
                 sh "oc start-build hello-world --from-dir '.'"
-                // This uploads your application's source code and performs a binary build in OpenShift
-                // This is a step defined in the shared library (see the top for the URL)
-                // (Or you could invoke this step using 'oc' commands!)
-                //binaryBuild(buildConfigName: appName, buildFromPath: ".")
             }
         }
         stage ("Deploy to DEV") {
