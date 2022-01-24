@@ -17,31 +17,31 @@ pipeline {
     agent none
     stages {
         stage("Clean bc") {
-            agent {label nodejs}
+            agent {label 'nodejs'}
             steps {
                 sh 'oc delete bc hello-world'
             }
         }
         stage("buildconnfig") {
-            agent {label nodejs}
+            agent {label 'nodejs'}
             steps {
                sh 'oc create -f ./Templates/buildconfig.yaml'
             }
         }
         stage("Checkout") {
-            agent {label nodejs}
+            agent {label 'nodejs'}
             steps {
                 checkout scm
             }
         }
         stage("Testing") {
-            agent {label nodejs}
+            agent {label 'nodejs'}
             steps {
                 sh "echo 'Testing'"
             }
         }
         stage("Docker Build") {
-            agent {label nodejs}
+            agent {label 'nodejs'}
             steps {
                 // This uploads your application's source code and performs a binary build in OpenShift
                 // This is a step defined in the shared library (see the top for the URL)
@@ -50,7 +50,7 @@ pipeline {
             }
         }
         stage ("Deploy to DEV") {
-            agent {label maven}
+            agent {label 'maven'}
             steps {
                 sh "echo 'Testing'"
             }
