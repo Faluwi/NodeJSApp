@@ -13,7 +13,7 @@ pipeline {
             steps {
                 sh "echo 'Testing'"
                 sh 'npm install'
-                sh 'npm test'
+                sh 'npm lint'
             }
         }
         stage("Clean BuildConfig") {
