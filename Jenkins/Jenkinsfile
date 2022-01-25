@@ -16,7 +16,15 @@ pipeline {
         }
         stage("Clean BuildConfig") {
             steps {
-                sh 'oc delete bc hello-world'
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                            if (openshift.selector("bc", 'hello-world]).exists()) {
+                                openshift.selector("bc", 'hello-world').delete()                       
+                            }
+                        }
+                    }
+                }
             }
         }
         stage("Build and push image to Docker") {
