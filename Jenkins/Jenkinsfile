@@ -70,8 +70,10 @@ pipeline {
                 }
             }
               steps {
-                  container('helm-slave') {
-                     sh 'helm version' 
+                  container('helm-slave') { 
+                     checkout scm
+                     sh 'helm version'
+                     sh 'helm install ./helm --generate-name' 
                   }
              }
         }
