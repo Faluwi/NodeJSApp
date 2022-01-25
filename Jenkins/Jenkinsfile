@@ -74,9 +74,9 @@ pipeline {
                      sh 'helm version'
                      sh "helm repo add bitnami https://charts.bitnami.com/bitnami"
                       script {
-                          openshift.withCluster() {
+                          openshift.withCluster() {openshift.withProject(){
                               sh "helm upgrade --install helm-sql bitnami/mysql -n faluwi-dev --wait"
-                          }
+                          }}
                       }
                   }
              }
