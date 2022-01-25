@@ -19,7 +19,7 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            if (openshift.selector("bc", 'hello-world]).exists()) {
+                            if (openshift.selector("bc", 'hello-world').exists()) {
                                 openshift.selector("bc", 'hello-world').delete()                       
                             }
                         }
