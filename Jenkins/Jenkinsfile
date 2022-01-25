@@ -35,11 +35,17 @@ pipeline {
         }
         stage ("Deploy to DEV") {
             steps {
-                if (openshift.selector("deployment", 'hello-world').exists()) {
-                    openshift.selector("deployment", 'hello-world').delete()                       
-                }
-                if (openshift.selector("service", 'hello-world').exists()) {
-                    openshift.selector("service", 'hello-world').delete()                       
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                            if (openshift.selector("deployment", 'hello-world').exists()) {
+                                openshift.selector("deployment", 'hello-world').delete()                       
+                            }
+                            if (openshift.selector("service", 'hello-world').exists()) {
+                                openshift.selector("service", 'hello-world').delete()                       
+                            }
+                        }
+                    }
                 }
                 sh "oc new-app faluwi/test:latest"
             }
