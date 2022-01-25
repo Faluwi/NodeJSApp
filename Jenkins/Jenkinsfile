@@ -73,7 +73,7 @@ pipeline {
                   container('helm-slave') { 
                      sh 'helm version'
                      sh "helm repo add bitnami https://charts.bitnami.com/bitnami"
-                     sh "helm install bitnami/mysql --generate-name"
+                     sh "helm upgrade --install helm-sql bitnami/mysql -n faluwi-dev --wait"
                   }
              }
         }
