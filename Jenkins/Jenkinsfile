@@ -35,8 +35,12 @@ pipeline {
         }
         stage ("Deploy to DEV") {
             steps {
-                sh 'oc delete deployment test'
-                sh 'oc delete service test'
+                if (openshift.selector("deployment", 'hello-world').exists()) {
+                    openshift.selector("deployment", 'hello-world').delete()                       
+                }
+                if (openshift.selector("service", 'hello-world').exists()) {
+                    openshift.selector("service", 'hello-world').delete()                       
+                }
                 sh "oc new-app faluwi/test:latest"
             }
         }
