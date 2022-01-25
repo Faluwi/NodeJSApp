@@ -71,9 +71,9 @@ pipeline {
             }
               steps {
                   container('helm-slave') { 
-                     checkout scm
                      sh 'helm version'
-                     sh "helm install ./helm --generate-name --set namespace=faluwi-dev" 
+                     sh "helm repo add bitnami https://charts.bitnami.com/bitnami"
+                     sh "helm install bitnami/mysql --generate-name"
                   }
              }
         }
