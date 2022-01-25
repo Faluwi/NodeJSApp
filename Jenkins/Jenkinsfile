@@ -30,7 +30,7 @@ pipeline {
                 sh "oc start-build hello-world --from-dir '.'"
             }
         }
-        stage ("Deploy to DEV") {
+/*        stage ("Deploy to DEV") {
             steps {
                 script {
                     openshift.withCluster() {
@@ -47,7 +47,7 @@ pipeline {
                 sh "oc new-app faluwi/test:latest"
             }
         }
-        
+*/
         stage ("helm") {
             agent {
                 kubernetes {
@@ -73,7 +73,7 @@ pipeline {
                   container('helm-slave') { 
                      checkout scm
                      sh 'helm version'
-                     sh "helm update ./helm --generate-name --set namespace=faluwi-dev" 
+                     sh "helm install ./helm --generate-name --set namespace=faluwi-dev" 
                   }
              }
         }
