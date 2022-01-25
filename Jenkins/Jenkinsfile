@@ -38,8 +38,8 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            if (openshift.selector("deployment", 'hello-world').exists()) {
-                                openshift.selector("deployment", 'hello-world').delete()                       
+                            if (openshift.selector("deployment", [templateName : 'hello-world']).exists()) {
+                                openshift.selector("deployment", [templateName : 'hello-world']).delete()                       
                             }
                             if (openshift.selector("service", 'hello-world').exists()) {
                                 openshift.selector("service", 'hello-world').delete()                       
