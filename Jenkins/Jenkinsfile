@@ -73,7 +73,7 @@ pipeline {
                   container('helm-slave') { 
                      checkout scm
                      sh 'helm version'
-                     sh "helm install ./helm --generate-name --set namespace=faluwi-dev" 
+                     sh "helm update ./helm --generate-name --set namespace=faluwi-dev" 
                   }
              }
         }
