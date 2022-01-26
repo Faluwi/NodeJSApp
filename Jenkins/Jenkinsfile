@@ -76,7 +76,7 @@ pipeline {
                       script {
                           openshift.withCluster() {
                               sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
-                              sh "helm upgrade --install testNode ./helm/testNode -n faluwi-dev --wait"
+                              sh "helm upgrade --install testnode ./helm/testNode -n faluwi-dev --wait"
                           }
                       }
                   }
