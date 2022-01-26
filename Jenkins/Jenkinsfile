@@ -11,7 +11,7 @@ pipeline {
                 sh 'npm run lint'
             }
         }
-        stage ("helm deploy") {
+        stage ("helm build") {
             agent {
                 kubernetes {
                     yaml '''
@@ -39,6 +39,7 @@ pipeline {
                       script {
                           openshift.withCluster() {
                               sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
+                              sh "helm upgrade --install testnodebuild ./helm/testNodeBuild -n faluwi-dev --wait"
                               sh "helm upgrade --install testnode ./helm/testNode -n faluwi-dev --wait"
                           }
                       }
