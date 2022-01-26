@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nodeapp
-        image: faluwi/test:v1.3
+        image: faluwi/test:v1.5
         ports:
         - containerPort: 3000
       imagePullSecrets:
