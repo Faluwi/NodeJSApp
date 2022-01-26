@@ -36,14 +36,15 @@ pipeline {
               steps {
                   container('helm-slave') { 
                      sh 'helm version'
-                      script {
-                          openshift.withCluster() {
-                              sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
-                              sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
-                              openshift.selector("bc", "test-node-build").startBuild("-n 'faluwi-dev' --wait")
-                              sh "helm upgrade --install testnode ./helm/testNode -n faluwi-dev --wait"
-                          }
-                      }
+                     script {
+                       openshift.withCluster() {
+                         sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
+                         sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
+                         openshift.selector("bc", "test-node-build").startBuild("-n 'faluwi-dev' --wait")
+                         sh "sleep 100"
+                         sh "helm upgrade --install testnode ./helm/testNode -n faluwi-dev --wait"
+                       }
+                     }
                   }
              }
         }
