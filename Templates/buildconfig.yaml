@@ -13,6 +13,9 @@ spec:
     # Expect a local directory to be streamed to OpenShift as a build source
     type: Binary
     binary: {}
+    secrets:
+    - secret:
+        name: private-registry
   strategy:
     type: Docker
     dockerStrategy:
