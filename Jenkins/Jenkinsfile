@@ -42,7 +42,11 @@ pipeline {
                               sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
                               openshift.withProject("faluwi-dev") {
                                 def build = openshift.selector("bc", "test-node-build").startBuild()
-                                build.logs('-f')
+                                timeout(5) { 
+                                  build.untilEach(1) {
+                                    return (it.object().status.phase == "Complete")
+                                  }
+                                }
                               }
                           }
                           openshift.withCluster() {
