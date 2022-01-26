@@ -33,20 +33,50 @@ pipeline {
                         '''
                 }
             }
-              steps {
-                  container('helm-slave') { 
-                     sh 'helm version'
-                     script {
-                       openshift.withCluster() {
-                         sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
-                         sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
-                         openshift.selector("bc", "test-node-build").startBuild("-n 'faluwi-dev' --wait")
-                         sh "sleep 100"
-                         sh "helm upgrade --install testnode ./helm/testNode -n faluwi-dev --wait"
-                       }
-                     }
+            steps {
+              container('helm-slave') { 
+                sh 'helm version'
+                script {
+                  openshift.withCluster() {
+                    sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
+                    sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
+                    openshift.selector("bc", "test-node-build").startBuild("-n 'faluwi-dev' --wait"
                   }
-             }
+                }
+              }
+            }
+        }
+        stage ("Deploy"){
+            agent {
+                kubernetes {
+                    yaml '''
+                        apiVersion: v1
+                        kind: Pod
+                        spec:
+                            containers:
+                            -  name: helm-slave
+                               image: docker.io/faluwi/jenkins-helm-agent:v0.1
+                               imagePullPolicy: IfNotPresent
+                               command:
+                               - cat
+                               tty: true
+                               resources:
+                                   limits: {}
+                                   requests:
+                                       memory: "256Mi"
+                                       cpu: "100m"
+                        '''
+                }
+            }
+            steps {
+              container('helm-slave') { 
+                script {
+                  openshift.withCluster() {
+                    sh "helm upgrade --install testnodedeploy ./helm/testNode -n faluwi-dev --wait"
+                  }
+                }
+              }
+            }
         }
     }//Stages
 }//Pipeline
