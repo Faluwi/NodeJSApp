@@ -28,6 +28,8 @@ pipeline {
             steps {
                 sh 'oc create -f ./Templates/buildconfig.yaml'
                 sh "oc start-build hello-world --from-dir '.'"
+                def build = openshift.selector("bc", "hello-world")
+                build.logs('-f')
             }
         }
         stage ("Deploy to DEV") {
