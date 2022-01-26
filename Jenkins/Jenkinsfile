@@ -31,7 +31,6 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            docker ps
                             def build = openshift.selector("bc", "hello-world")
                             build.logs('-f')
                         }
