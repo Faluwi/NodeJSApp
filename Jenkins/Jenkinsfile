@@ -76,7 +76,7 @@ pipeline {
                      sh "helm repo add bitnami https://charts.bitnami.com/bitnami"
                       script {
                           openshift.withCluster() {openshift.withProject(){
-                              sh "helm upgrade --install helm-sql bitnami/node -n faluwi-dev --set mongodb.auth.rootPassword=asdf --wait"
+                              sh "helm upgrade --install helm-sql bitnami/node -n faluwi-dev --wait"
                           }}
                       }
                   }
