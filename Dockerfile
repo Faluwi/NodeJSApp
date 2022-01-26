@@ -5,5 +5,5 @@ WORKDIR /app
 ADD package.json /app
 ADD package-lock.json /app
 RUN npm install --only=production
-ADD . /app
+ADD index.js /app
 CMD ["node", "index.js"]
