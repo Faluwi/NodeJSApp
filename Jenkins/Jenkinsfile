@@ -11,33 +11,6 @@ pipeline {
                 sh 'npm run lint'
             }
         }
-        stage("Clean BuildConfig") {
-            steps {
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject() {
-                            if (openshift.selector("bc", 'hello-world').exists()) {
-                                openshift.selector("bc", 'hello-world').delete()                       
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        stage("Build and push image to Docker") {
-            steps {
-                sh 'oc create -f ./Templates/buildconfig.yaml'
-                sh "oc start-build hello-world --from-dir '.'"
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject() {
-                            def build = openshift.selector("bc", "hello-world")
-                            build.logs('-f')
-                        }
-                    }
-                }
-            }
-        }
         stage ("helm deploy") {
             agent {
                 kubernetes {
