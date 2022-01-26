@@ -1,0 +1,20 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: test-node-build
+  labels:
+    app.kubernetes.io/name: test-node-build
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/faluwi/NodeJSApp
+    contextDir: ./
+  strategy:
+    type: Docker                      
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: DockerImage
+      name: "docker.io/faluwi/test:v1.5"
