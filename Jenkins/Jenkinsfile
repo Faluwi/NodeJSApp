@@ -55,7 +55,9 @@ pipeline {
                 sh "oc new-app faluwi/test:latest"
             }
         }
-*/agent none
+*/
+    agent none
+    stages {
         stage ("helm") {
             agent {
                 kubernetes {
