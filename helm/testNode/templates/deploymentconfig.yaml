@@ -1,23 +1,19 @@
-kind: "DeploymentConfig"
-apiVersion: "v1"
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: "test-node"
+  name: test-node
 spec:
-  template: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-node
+  template:
     metadata:
       labels:
-        name: "test-node"
+        app: test-node
     spec:
       containers:
-        - name: "nodeapp"
-          image: "faluwi/test:v1.2"
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 3000
-              protocol: "TCP"
-  replicas: 1
-  strategy: 
-    type: "Rolling"
-  paused: false 
-  revisionHistoryLimit: 2 
-  minReadySeconds: 0 
+      - name: nodeapp
+        image: faluwi/test:v1.2
+        ports:
+        - containerPort: 3000
