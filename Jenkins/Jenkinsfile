@@ -41,15 +41,8 @@ pipeline {
                               sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
                               sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
                               openshift.withProject("faluwi-dev") {
-                                def build = openshift.selector("bc", "test-node-build").startBuild()
-                                timeout(5) { 
-                                  build.untilEach(1) {
-                                    return (it.object().status.phase == "Complete")
-                                  }
-                                }
+                                openshift.selector("bc", "app_name").startBuild("--wait")
                               }
-                          }
-                          openshift.withCluster() {
                               sh "helm upgrade --install testnode ./helm/testNode -n faluwi-dev --wait"
                           }
                       }
