@@ -34,18 +34,18 @@ pipeline {
                 }
             }
             steps {
-              container('helm-slave') { 
+              container ('helm-slave') {
                 sh 'helm version'
                 script {
                   openshift.withCluster() {
                     sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
                     sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
                     openshift.selector("bc", "test-node-build").startBuild("-n 'faluwi-dev' --wait"
-                  }
-                }
-              }
-            }
-        }
+                  }//oc
+                }//Script
+              }//Container
+            }//Steps
+        }//stage
         stage ("Deploy"){
             agent {
                 kubernetes {
@@ -74,9 +74,9 @@ pipeline {
                   openshift.withCluster() {
                     sh "helm upgrade --install testnodedeploy ./helm/testNode -n faluwi-dev --wait"
                   }
-                }
-              }
-            }
-        }
+                }//Script
+              }//Container
+            }//Steps
+        }//Stage
     }//Stages
 }//Pipeline
