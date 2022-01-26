@@ -1,0 +1,23 @@
+kind: "DeploymentConfig"
+apiVersion: "v1"
+metadata:
+  name: "test-node"
+spec:
+  template: 
+    metadata:
+      labels:
+        name: "test-node"
+    spec:
+      containers:
+        - name: "nodeapp"
+          image: "faluwi/test:v1.2"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              protocol: "TCP"
+  replicas: 1
+  strategy: 
+    type: "Rolling"
+  paused: false 
+  revisionHistoryLimit: 2 
+  minReadySeconds: 0 
