@@ -40,6 +40,10 @@ pipeline {
                           openshift.withCluster() {
                               sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
                               sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
+                              openshift.withProject("faluwi-dev") {
+                                def build = openshift.selector("bc", "example").startBuild()
+                                build.logs('-f')
+                              }
                               sh "helm upgrade --install testnode ./helm/testNode -n faluwi-dev --wait"
                           }
                       }
