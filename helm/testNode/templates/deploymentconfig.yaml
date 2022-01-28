@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ release.name }}
+  name: {{ .release.name }}
 spec:
-  replicas: {{ replicaCount }}
+  replicas: {{ .replicaCount }}
   selector:
     matchLabels:
-      app: {{ release.name }}
+      app: {{ .release.name }}
   template:
     metadata:
       labels:
-        app: {{ release.name }}
+        app: {{ .release.name }}
     spec:
       containers:
-      - name: nodeapp
-        image: {{ image.repository }}
+      - name: {{ .container.name }}
+        image: {{ .image.repository }}
         ports:
-        - containerPort: {{ container.port }}
+        - containerPort: {{ .container.port }}
       imagePullSecrets:
-        - name: {{ imagePullSecret.name }}
+        - name: {{ .imagePullSecret.name }}
