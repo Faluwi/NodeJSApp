@@ -12,6 +12,7 @@ imagePullSecret:
   name: private-registry
 
 container:
+  name: nodeapp
   port: 3000
 
 service:
