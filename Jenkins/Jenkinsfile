@@ -55,7 +55,7 @@ pipeline {
               container('helm-slave') { 
                 script {
                   openshift.withCluster() {
-                    sh "helm upgrade --install testnodedeploy ./helm/testNode -f values.yaml -n faluwi-dev --wait"
+                    sh "helm upgrade --install testnodedeploy ./helm/testNode -f ./helm/testNode/values.yaml -n faluwi-dev --wait"
                   }
                 }//Script
               }//Container
