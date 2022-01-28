@@ -4,14 +4,17 @@ pipeline {
     // Use the 'node' Jenkins agent image which is provided with OpenShift 
     agent {label 'nodejs'}
     stages {
-        stage("Testing") {
+        stage("Compiling") {
             steps {
-                sh "echo 'Testing'"
-                sh 'npm install'
-                sh 'npm run lint'
+              sh "npm install"   
             }
         }
-        stage ("helm build") {
+        stage("Testing") {
+            steps {
+                sh "npm run lint"
+            }
+        }
+        stage ("DockerBuild Helm/OC") {
             agent {
                 kubernetes {
                     yaml '''
@@ -35,18 +38,20 @@ pipeline {
             }
             steps {
               container ('helm-slave') {
-                sh 'helm version'
                 script {
                   openshift.withCluster() {
-                    sh "helm upgrade --install testsecret ./helm/testSecret -n faluwi-dev --wait"
+                      
+                    //Create buildconfig for Docker Image
                     sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
+                      
+                    //Building Docker Image and pushing to dockerhub  
                     openshift.selector("bc", "test-node-build").startBuild("-n 'faluwi-dev' --wait")
                   }//oc
                 }//Script
               }//Container
             }//Steps
         }//stage
-        stage ("Deploy"){
+        stage ("Deployment"){
             agent {
                 kubernetes {
                     yaml '''
