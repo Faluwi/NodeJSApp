@@ -18,7 +18,7 @@ pipeline {
                   openshift.withCluster() {
                       
                     //Create buildconfig for Docker Image
-                     openshift.create("-f './Templates/dockerbuild.yaml' -n 'faluwi-dev'")
+                     openshift.create("-f './Templates/dockerbuild.yaml' -n 'faluwi-dev' --showlogs")
                     //Building Docker Image and pushing to dockerhub  
                     openshift.selector("bc", "docker-test-build").startBuild("-n 'faluwi-dev' --wait")
                   }//oc
