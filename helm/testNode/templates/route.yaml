@@ -1,12 +1,12 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: test-node-route
-  namespace: faluwi-dev
+  name: {{ release.name }}-route
+  namespace: {{ namespace }}
 spec:
-  path: /
+  path: {{ route.path }}
   to:
     kind: Service
-    name: test-node-service
+    name: {{ release.name }}-service
   port:
-    targetPort: 3000
+    targetPort: {{ service.port }}
