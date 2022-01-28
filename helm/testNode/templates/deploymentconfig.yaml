@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-node
+  name: {{ release.name }}
 spec:
-  replicas: 1
+  replicas: {{ replicaCount }}
   selector:
     matchLabels:
-      app: test-node
+      app: {{ release.name }}
   template:
     metadata:
       labels:
-        app: test-node
+        app: {{ release.name }}
     spec:
       containers:
       - name: nodeapp
-        image: faluwi/test:v1.7
+        image: {{ image.repository }}
         ports:
-        - containerPort: 3000
+        - containerPort: {{ container.port }}
       imagePullSecrets:
-        - name: private-registry
+        - name: {{ imagePullSecret.name }}
