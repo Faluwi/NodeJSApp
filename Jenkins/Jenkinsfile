@@ -20,7 +20,9 @@ pipeline {
                     //Create buildconfig for Docker Image
                      openshift.create("-f './Templates/dockerbuild.yaml' -n 'faluwi-dev'")
                     //Building Docker Image and pushing to dockerhub  
-                    openshift.selector("bc", "docker-test-build").startBuild("-n 'faluwi-dev' --follow=true")
+                    def dockerBuild = openshift.selector("bc", "docker-test-build").startBuild("-n 'faluwi-dev'")
+                    //Log/wait for Build, optional parallel tasks could be added here
+                    dockerBuild.logs('-f')
                     //Clean BuildConfig
                     openshift.selector("bc", "docker-test-build").delete()
                     }}//oc
