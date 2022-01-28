@@ -15,7 +15,7 @@ pipeline {
         stage ("Build2Docker") {
             steps {
                 script {
-                  openshift.withCluster() {
+                    openshift.withCluster() {openshift.withProject('faluwi-dev') {
                       
                     //Create buildconfig for Docker Image
                      openshift.create("-f './Templates/dockerbuild.yaml' -n 'faluwi-dev'")
@@ -23,7 +23,7 @@ pipeline {
                     openshift.selector("bc", "docker-test-build").startBuild("-n 'faluwi-dev' --follow=true")
                     //Clean BuildConfig
                     openshift.selector("bc", "docker-test-build").delete()
-                  }//oc
+                    }}//oc
                 }//Script
             }//Steps
         }//stage
