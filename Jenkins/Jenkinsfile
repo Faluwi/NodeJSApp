@@ -21,6 +21,8 @@ pipeline {
                      openshift.create("-f './Templates/dockerbuild.yaml' -n 'faluwi-dev' --showlogs")
                     //Building Docker Image and pushing to dockerhub  
                     openshift.selector("bc", "docker-test-build").startBuild("-n 'faluwi-dev' --wait")
+                    //Clean BuildConfig
+                    openshift.selector("bc", "docker-test-build").delete()
                   }//oc
                 }//Script
             }//Steps
