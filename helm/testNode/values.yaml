@@ -22,7 +22,7 @@ service:
   targetPort: 3000
 
 route:
-  path: \
+  path: /
   
 replicaCount: 1
 
