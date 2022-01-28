@@ -26,12 +26,6 @@ route:
   
 replicaCount: 1
 
-image:
-  repository: docker.io/faluwi/test:latest
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
-
 nameOverride: ""
 fullnameOverride: ""
 
