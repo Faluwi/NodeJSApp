@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: test-node-service
-  namespace: faluwi-dev
+  name: {{ release.name }}-service
+  namespace: {{ namespace }}
 spec:
   selector:
-    app: test-node
+    app: {{ release.name }}
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3000
+    - protocol: {{ service.protocol }}
+      port: {{ service.port }}
+      targetPort: {{ service.targetPort }}
