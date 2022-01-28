@@ -18,5 +18,5 @@ Jenkins sollte nun einen Nodejs-Agent anlegen, welcher den JavaScript Code aus d
 installiert, testet und dann in OpenShift einen [Docker-Build](/Templates/dockerbuild.yaml) anstößt.
 Dieser läd dann das Image in das darin definierte DockerHub Repository.
 Zum Schluß wird ein Helm-Agent erstellt, welcher das [Helm-Chart](/helm/testNode) installiert, in dem
-ein [Deployment](/helm/testNode/templates/deployment.yaml) mit zugehörigem [Service](/helm/testNode/templates/service.yaml) und
+ein [Deployment](/helm/testNode/templates/deploymentconfig.yaml) mit zugehörigem [Service](/helm/testNode/templates/service.yaml) und
 [Route](/helm/testNode/templates/route.yaml) definiert ist.
