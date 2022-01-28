@@ -18,7 +18,7 @@ container:
 service:
   type: ClusterIP
   protocol: TCP
-  port: 4000
+  port: 80
   targetPort: 3000
 
 route:
