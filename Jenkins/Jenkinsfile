@@ -41,7 +41,7 @@ pipeline {
                       
                     //Create buildconfig for Docker Image
                     //sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
-                     openshift.create(-f ./Templates/buildconfig.yaml -n faluwi-dev --wait)
+                     openshift.create("-f './Templates/buildconfig.yaml' -n 'faluwi-dev' --wait")
                     //Building Docker Image and pushing to dockerhub  
                     openshift.selector("bc", "test-node-build").startBuild("-n 'faluwi-dev' --wait")
                   }//oc
