@@ -12,41 +12,17 @@ pipeline {
                 sh "npm run lint"
             }
         }
-        stage ("DockerBuild Helm/OC") {
-            agent {
-                kubernetes {
-                    yaml '''
-                        apiVersion: v1
-                        kind: Pod
-                        spec:
-                            containers:
-                            -  name: helm-slave
-                               image: docker.io/faluwi/jenkins-helm-agent:v0.1
-                               imagePullPolicy: IfNotPresent
-                               command:
-                               - cat
-                               tty: true
-                               resources:
-                                   limits: {}
-                                   requests:
-                                       memory: "256Mi"
-                                       cpu: "100m"
-                        '''
-                }
-            }
+        stage ("Build2Docker") {
             steps {
-              container ('helm-slave') {
                 script {
                   openshift.withCluster() {
                       
                     //Create buildconfig for Docker Image
-                    //sh "helm upgrade --install testnodebuild ./helm/testBuild -n faluwi-dev --wait"
                      openshift.create("-f './Templates/dockerbuild.yaml' -n 'faluwi-dev'")
                     //Building Docker Image and pushing to dockerhub  
                     openshift.selector("bc", "docker-test-build").startBuild("-n 'faluwi-dev' --wait")
                   }//oc
                 }//Script
-              }//Container
             }//Steps
         }//stage
         stage ("Deployment"){
