@@ -2,8 +2,8 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   labels:
-    app.kubernetes.io/name: hello-world
-  name: hello-world
+    app.kubernetes.io/name: test-hello-world
+  name: test-hello-world
 spec:
   output:
     to:
