@@ -5,7 +5,7 @@ release:
   name: test-node
   
 image:
-  repository: docker.io/faluwi/test:v1.7
+  repository: docker.io/faluwi/test:v1.9
   pullPolicy: IfNotPresent
 
 imagePullSecret:
