@@ -17,4 +17,4 @@ spec:
   output:
     to:
       kind: DockerImage
-      name: "docker.io/faluwi/test:v1.7"
+      name: "docker.io/faluwi/test:v1.9"
